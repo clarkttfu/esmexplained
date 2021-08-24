@@ -1,6 +1,6 @@
 {
   "name": "esmexplained",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "JavaScript Module Systems Explained",
   "main": "index.js",
   "scripts": {
@@ -12,6 +12,7 @@
   },
   "keywords": [
     "javascript",
+    "typescript",
     "module"
   ],
   "author": "clarkttfu@gmail.com",
@@ -21,6 +22,6 @@
   },
   "homepage": "https://github.com/clarkttfu/esmexplained#readme",
   "devDependencies": {
-    "tsc": "^2.0.3"
+    "typescript": "^4.3.5"
   }
 }

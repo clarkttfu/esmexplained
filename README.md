@@ -143,10 +143,17 @@ One can observe this by compiling the code of foo.mjs above as TypeScript.
 
 ### TypeScript Only: `export =` and `import = require()`
 
-Because one cannot `export default` a CommonJS module that use `module.exports`:
+Because TypeScript compiler will error if one `import * as Mod from './mod.js`, which use `module.exports`:
+>> This module can only be referenced with ECMAScript imports/exports by turning on the 'esModuleInterop' flag and referencing its default export.
+
+The office document explain:
 
 >>Default exports are meant to act as a replacement for this behavior; however, the two are incompatible. TypeScript supports export = to model the traditional CommonJS and AMD workflow.<p/>
 The export = syntax specifies a single object that is exported from the module. This can be a class, interface, namespace, function, or enum.
+
+However, `import * as Mod from './mod.js` actually works in NodeJS code, because ["When importing CommonJS modules, the `module.exports` object is provided as the default export".](https://nodejs.org/docs/latest-v14.x/api/esm.html#esm_import_statements)
+
+The `require()` in both JavaScript and TypeScript "always treats the files it references as CommonJS".
 
 ### TypeScript --esModuleInterop flag
 
