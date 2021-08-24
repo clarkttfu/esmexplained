@@ -57,7 +57,7 @@ For NodeJS starting from 12.17.0:
   - support ESM but require `.mjs` extension or `"type": "module"` in package.json.
   - assume `.js` CommonJS module, obviously.
   - also support dynamic (async) `import()` in both CommonJS and ESModule. 
-  - no `require.xxx` but only `require()`, which **always** assume CommonJS module.
+  - no `require.xxx` in ES module but only `require()`, which **always** assume CommonJS module.
 
 ### import / export
 
@@ -146,24 +146,21 @@ One can observe this by compiling the code of foo.mjs above as TypeScript.
 Because TypeScript compiler will error if one `import * as Mod from './mod.js`, which use `module.exports`:
 > This module can only be referenced with ECMAScript imports/exports by turning on the 'esModuleInterop' flag and referencing its default export.
 
-From TypeScript document:
+During execution, `import * as Mod from './mod.js`, the Mod will become a 'Module' object instead of `module.exports`. According to TypeScript document:
 
 >Default exports are meant to act as a replacement for this behavior; however, the two are incompatible. TypeScript supports export = to model the traditional CommonJS and AMD workflow.<p/>
 The export = syntax specifies a single object that is exported from the module. This can be a class, interface, namespace, function, or enum.
 
-However, `import * as Mod from './mod.js` actually works in NodeJS code, because ["When importing CommonJS modules, the `module.exports` object is provided as the default export".](https://nodejs.org/docs/latest-v14.x/api/esm.html#esm_import_statements)
-
-The `require()` in both JavaScript and TypeScript "always treats the files it references as CommonJS".
-
 ### TypeScript --esModuleInterop flag
 
-This flag changes the TypeScript compiler behavior in 2 ways<sup>[7]</sup>:
+This flag resolves the above problem, by changing the TypeScript compiler behavior in 2 ways<sup>[7]</sup>:
 
 1. a namespace import like `import * as moment from "moment"` acts the same as  
   `const moment = require("moment")`
 2. a default import like `import moment from "moment"` acts the same as  
   `const moment = require("moment").default`.
 
+The second change is compiler sugar which generates helper functions. While **the first change actually breaks the language spec**, so TypeScript make this flag `false` by default.
 
 ## References
 1. https://en.wikipedia.org/wiki/CommonJS
