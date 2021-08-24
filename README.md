@@ -141,6 +141,13 @@ During execution, `import * as Mod from './mod.js`, the Mod will become a 'Modul
 >Default exports are meant to act as a replacement for this behavior; however, the two are incompatible. TypeScript supports export = to model the traditional CommonJS and AMD workflow.<p/>
 The export = syntax specifies a single object that is exported from the module. This can be a class, interface, namespace, function, or enum.
 
+One cannot `export =` and `export default` at same time (TypeScript cannot compile), however [there is a trick](https://remarkablemark.org/blog/2020/05/05/typescript-export-commonjs-es6-modules/):
+```
+myModule.default = myModule
+export = myModule
+```
+
+
 ### TypeScript --esModuleInterop flag
 
 This flag resolves the above problem, by changing the TypeScript compiler behavior in 2 ways<sup>[7]</sup>:
@@ -150,7 +157,8 @@ This flag resolves the above problem, by changing the TypeScript compiler behavi
 2. a default import like `import moment from "moment"` acts the same as  
   `const moment = require("moment").default`.
 
-The second change is compiler sugar which generates helper functions. While **the first change actually breaks the language spec**, so TypeScript make this flag `false` by default.
+The second change is compiler sugar which generates helper functions.  
+While **the first change actually breaks the language spec**, so TypeScript make this flag `false` by default.
 
 ### Special cases
 
