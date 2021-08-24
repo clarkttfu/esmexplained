@@ -91,16 +91,6 @@ export { ZipCodeValidator as mainValidator };
 import { ZipCodeValidator as ZCV } from "./ZipCodeValidator";
 ```
 
-#### Special cases
-
-```
-// useful when creating a types only module
-import type { APIResponseType } from "./api";
-
-// Import a module for side-effects only
-import "./my-module.js";
-```
-
 ### import * / export *
 
 ```
@@ -161,6 +151,16 @@ This flag resolves the above problem, by changing the TypeScript compiler behavi
   `const moment = require("moment").default`.
 
 The second change is compiler sugar which generates helper functions. While **the first change actually breaks the language spec**, so TypeScript make this flag `false` by default.
+
+### Special cases
+
+```
+// Import a module for side-effects only
+import "./my-module.js";
+
+// useful when creating a types only TypeScript module
+import type { APIResponseType } from "./api";
+```
 
 ## References
 1. https://en.wikipedia.org/wiki/CommonJS
