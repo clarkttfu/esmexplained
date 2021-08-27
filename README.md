@@ -162,11 +162,17 @@ While **the first change actually breaks the language spec**, so TypeScript make
 
 ### Special cases
 
-```
-// Import a module for side-effects only
-import "./my-module.js";
+#### Import for side effects only
 
-// useful when creating a types only TypeScript module
+Import without creating any local variable
+```
+import "./my-module.js";
+```
+
+#### Import types only 
+
+Useful when creating a types only TypeScript module
+```
 import type { APIResponseType } from "./api";
 ```
 
