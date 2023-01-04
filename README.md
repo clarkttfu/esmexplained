@@ -163,6 +163,9 @@ While **the first change actually breaks the language spec**, so TypeScript make
 
 ### Special cases
 
+#### Import for side effects only
+
+Import without creating any local variable
 ```
 // Import a module for side-effects only
 // not the '.js' extension or '/index.js' is required according to
@@ -170,7 +173,10 @@ While **the first change actually breaks the language spec**, so TypeScript make
 import "./my-module.js";
 import "./my-module/index.js";
 
-// useful when creating a types only TypeScript module
+#### Import types only 
+
+Useful when creating a types only TypeScript module
+```
 import type { APIResponseType } from "./api";
 ```
 
