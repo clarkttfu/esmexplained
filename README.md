@@ -57,6 +57,7 @@ For NodeJS starting from 12.17.0:
   - support ESM but require `.mjs` extension or `"type": "module"` in package.json.
   - assume `.js` CommonJS module, obviously.
   - also support dynamic (async) `import()` in both CommonJS and ESModule. 
+  - relative or absolute `import` requires '.js' or 'xxx/index.js' 
   - no `require.xxx` in ES module but only `require()`, which **always** assume CommonJS module.
 
 ### import / export
@@ -164,7 +165,10 @@ While **the first change actually breaks the language spec**, so TypeScript make
 
 ```
 // Import a module for side-effects only
+// not the '.js' extension or '/index.js' is required according to
+// https://nodejs.org/docs/latest-v18.x/api/esm.html#mandatory-file-extensions
 import "./my-module.js";
+import "./my-module/index.js";
 
 // useful when creating a types only TypeScript module
 import type { APIResponseType } from "./api";
